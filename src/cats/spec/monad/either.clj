@@ -32,12 +32,12 @@
       (explain* [_ path via in x]
         (cond
           (not (m.either/either? x)) {:path path :pred `m.either/either? :val x :via via :in in}
-          (and (m.either/right? x)) (s/explain* @spec-r
-                                                (conj path :either/right)
-                                                via in @x)
-          (and (m.either/left? x)) (s/explain* @spec-l
-                                               (conj path :either/left)
-                                               via in @x)))
+          (m.either/right? x) (s/explain* @spec-r
+                                          (conj path :either/right)
+                                          via in @x)
+          (m.either/left? x) (s/explain* @spec-l
+                                         (conj path :either/left)
+                                         via in @x)))
 
       (gen* [this overrides path rmap]
         (if-let [gfn (:gfn this)]
