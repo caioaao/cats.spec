@@ -20,7 +20,7 @@
   (t/testing "Works with clojure.spec api"
     (let [v (gen/generate (s/gen :unq/identity))]
       (t/is (s/valid? :unq/identity v))
-      (t/is (m.identity/identity? v))
+      (t/is (s.identity/identity? v))
       (t/is (= v
                (s/conform :unq/identity v)
                (s/unform :unq/identity v)

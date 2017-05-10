@@ -9,6 +9,10 @@
                  [cats.monad.identity :as m.identity]
                  [clojure.spec.impl.gen :as gen])]))
 
+(defn identity?
+  [v]
+  (instance? cats.monad.identity.Identity v))
+
 (defn identity-impl
   [form pred]
   (let [spec (delay (s/specize* pred form))]
@@ -19,18 +23,18 @@
 
       s/Spec
       (conform* [_ x]
-        (if (not (m.identity/identity? x))
+        (if (not (identity? x))
           ::s/invalid
           (m.identity/identity (s/conform* @spec @x))))
 
       (unform* [_ x]
-        (if (not (m.identity/identity? x))
+        (if (not (identity? x))
           ::s/invalid
           (m.identity/identity (s/unform* @spec @x))))
 
       (explain* [_ path via in x]
-        (if (not (m.identity/identity? x))
-          {:path path :pred `m.identity/identity? :val x :via via :in in}
+        (if (not (identity? x))
+          {:path path :pred `identity? :val x :via via :in in}
           (s/explain* @spec (conj path :identity/self)
                      via in @x)))
 
