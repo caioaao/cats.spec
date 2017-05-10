@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [cljs.test :as test]
             [cats.spec.monad.identity-test]
+            [cats.spec.monad.maybe-test]
             [cats.spec.monad.either-test]
             [cats.spec.monad.exception-test]))
 
@@ -11,6 +12,7 @@
   (test/run-tests
    (test/empty-env)
    'cats.spec.monad.identity-test
+   'cats.spec.monad.maybe-test
    'cats.spec.monad.either-test
    'cats.spec.monad.exception-test))
 
