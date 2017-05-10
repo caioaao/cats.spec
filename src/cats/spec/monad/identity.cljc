@@ -1,7 +1,13 @@
 (ns cats.spec.monad.identity
-  (:require [clojure.spec.alpha :as s]
-            [cats.monad.identity :as m.identity]
-            [clojure.spec.gen.alpha :as gen]))
+  #?@(:clj
+      [(:require [clojure.spec.alpha :as s]
+                 [cats.monad.identity :as m.identity]
+                 [clojure.spec.gen.alpha :as gen])]
+
+      :cljs
+      [(:require [clojure.spec :as s]
+                 [cats.monad.identity :as m.identity]
+                 [clojure.spec.impl.gen :as gen])]))
 
 (defn identity-impl
   [form pred]

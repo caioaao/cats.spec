@@ -1,9 +1,18 @@
 (ns cats.spec.monad.identity-test
-  (:require [cats.monad.identity :as m.identity]
-            [cats.spec.monad.identity :as s.identity]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]
-            [clojure.test :as t]))
+  #?@(:clj
+      [(:require [cats.monad.identity :as m.identity]
+                 [cats.spec.monad.identity :as s.identity]
+                 [clojure.spec.alpha :as s]
+                 [clojure.spec.gen.alpha :as gen]
+                 [clojure.test :as t])]
+
+      :cljs
+      [(:require [cats.monad.identity :as m.identity]
+                 [cats.spec.monad.identity :as s.identity :include-macros true]
+                 [clojure.spec :as s]
+                 [clojure.test.check.generators]
+                 [cljs.spec.impl.gen :as gen]
+                 [cljs.test :as t])]))
 
 (s/def :unq/identity (s.identity/identity int?))
 

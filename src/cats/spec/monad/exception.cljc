@@ -1,8 +1,16 @@
 (ns cats.spec.monad.exception
-  (:require [clojure.spec.alpha :as s]
-            [cats.monad.exception :as m.exc]
-            [cats.protocols :as p]
-            [clojure.spec.gen.alpha :as gen]))
+  #?@(:clj
+      [(:require [clojure.spec.alpha :as s]
+                 [cats.monad.exception :as m.exc]
+                 [cats.protocols :as p]
+                 [clojure.spec.gen.alpha :as gen])]
+
+      :cljs
+      [(:require [clojure.spec :as s]
+                 [cats.monad.exception :as m.exc]
+                 [cats.protocols :as p]
+                 [clojure.test.check.generators]
+                 [cljs.spec.impl.gen :as gen])]))
 
 ;; TODO Assert if `pred-failure` is a pred for an exception
 (defn exception-impl
@@ -20,7 +28,7 @@
           (cond
             (or (not (m.exc/exception? x))
                 (= @conformed-v ::s/invalid)
-                (and (m.exc/failure? x) (not (instance? Exception @conformed-v))))
+                (and (m.exc/failure? x) (not (instance? #?(:clj Exception :cljs js/Error) @conformed-v))))
             ::s/invalid
 
             (m.exc/success? x)
@@ -34,7 +42,7 @@
           (cond
             (or (not (m.exc/exception? x))
                 (= @unformed-v ::s/invalid)
-                (and (m.exc/failure? x) (not (instance? Exception @unformed-v))))
+                (and (m.exc/failure? x) (not (instance? #?(:clj Exception :cljs js/Error) @unformed-v))))
             ::s/invalid
 
             (m.exc/success? x)

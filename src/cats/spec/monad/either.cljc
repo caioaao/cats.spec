@@ -1,7 +1,12 @@
 (ns cats.spec.monad.either
-  (:require [cats.monad.either :as m.either]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]))
+  #?@(:clj
+      [(:require [cats.monad.either :as m.either]
+                 [clojure.spec.alpha :as s]
+                 [clojure.spec.gen.alpha :as gen])]
+      :cljs
+      [(:require [cats.monad.either :as m.either]
+                 [clojure.spec :as s]
+                 [cljs.spec.impl.gen :as gen])]))
 
 (declare either)
 

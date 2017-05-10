@@ -1,9 +1,18 @@
 (ns cats.spec.monad.either-test
-  (:require [cats.monad.either :as m.either]
-            [cats.spec.monad.either :as s.either]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]
-            [clojure.test :as t]))
+  #?@(:clj
+      [(:require [cats.monad.either :as m.either]
+                 [cats.spec.monad.either :as s.either]
+                 [clojure.spec.alpha :as s]
+                 [clojure.spec.gen.alpha :as gen]
+                 [clojure.test :as t])]
+
+      :cljs
+      [(:require [cats.monad.either :as m.either]
+                 [cats.spec.monad.either :as s.either :include-macros true]
+                 [clojure.spec :as s]
+                 [clojure.test.check.generators]
+                 [cljs.spec.impl.gen :as gen]
+                 [cljs.test :as t])]))
 
 (s/def :either.player/name string?)
 (s/def :either.player/gender #{:male :female})

@@ -1,13 +1,24 @@
 (ns cats.spec.monad.exception-test
-  (:require [cats.spec.monad.exception :as s.exc]
-            [clojure.test :as t]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]
-            [cats.monad.exception :as m.exc]
-            [cats.protocols :as p]))
+  #?@(:clj
+      [(:require [cats.spec.monad.exception :as s.exc]
+                  [clojure.test :as t]
+                  [clojure.spec.alpha :as s]
+                  [clojure.spec.gen.alpha :as gen]
+                  [cats.monad.exception :as m.exc]
+                  [cats.protocols :as p])]
+
+      :cljs
+      [(:require [cats.monad.exception :as m.exc]
+                 [cats.protocols :as p :include-macros true]
+                 [cats.spec.monad.exception :as s.exc :include-macros true]
+                 [cljs.spec.impl.gen :as gen]
+                 [cljs.test :as t]
+                 [clojure.spec :as s]
+                 [clojure.test.check.generators])]))
 
 (s/def :exc/success int?)
-(s/def :exc/failure (s/with-gen #(instance? clojure.lang.ExceptionInfo %)
+(s/def :exc/failure (s/with-gen #(instance? #?(:clj clojure.lang.ExceptionInfo
+                                               :cljs cljs.core.ExceptionInfo) %)
                       #(gen/return (ex-info "Wat" {}))))
 
 (s/def :exc/computation-result (s.exc/exception :exc/success :exc/failure))
@@ -39,7 +50,7 @@
                              :via [:exc/computation-result]
                              :in []}]}))
 
-    (let [exception (Exception. "123")
+    (let [exception (#?(:clj Exception. :cljs js/Error) "123")
           explain-failure (s/explain-data :exc/computation-result (m.exc/failure exception))]
       (t/is (= explain-failure
                {::s/problems [{:path [:either/left]
