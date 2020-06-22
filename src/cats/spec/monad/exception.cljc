@@ -75,4 +75,4 @@
 
 (defmacro exception
   [pred-success pred-failure]
-   `(exception-impl '~pred-success ~pred-success '~pred-failure ~pred-failure))
+  `(exception-impl '~pred-success ~pred-success '~pred-failure ~pred-failure))

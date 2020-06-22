@@ -1,11 +1,11 @@
 (ns cats.spec.monad.exception-test
   #?@(:clj
       [(:require [cats.spec.monad.exception :as s.exc]
-                  [clojure.test :as t]
-                  [clojure.spec.alpha :as s]
-                  [clojure.spec.gen.alpha :as gen]
-                  [cats.monad.exception :as m.exc]
-                  [cats.protocols :as p])]
+                 [clojure.test :as t]
+                 [clojure.spec.alpha :as s]
+                 [clojure.spec.gen.alpha :as gen]
+                 [cats.monad.exception :as m.exc]
+                 [cats.protocols :as p])]
 
       :cljs
       [(:require [cats.monad.exception :as m.exc]

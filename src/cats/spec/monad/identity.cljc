@@ -36,7 +36,7 @@
         (if (not (identity? x))
           {:path path :pred `identity? :val x :via via :in in}
           (s/explain* @spec (conj path :identity/self)
-                     via in @x)))
+                      via in @x)))
 
       (gen* [this overrides path rmap]
         (if-let [gfn (:gfn this)]

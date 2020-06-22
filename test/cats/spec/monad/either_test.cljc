@@ -27,7 +27,6 @@
 
 (s/def :either/move-or-error (s.either/either :either.move/move :either.move/error))
 
-
 (t/deftest either-spec-test
   (t/testing "Works with clojure.spec api"
     (doseq [v (gen/sample (s/gen :either/move-or-error))]
